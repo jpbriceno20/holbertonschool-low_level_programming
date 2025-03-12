@@ -1,0 +1,93 @@
+#include "main.h"
+#include <stdlib.h>
+
+/**
+ * count_words - Counts the number of words in a string
+ * @str: The input string
+ *
+ * Return: Number of words
+ */
+static int count_words(char *str)
+{
+	int i = 0, words = 0;
+
+	while (str[i] != '\0')
+	{
+		/* Skip leading spaces */
+		while (str[i] == ' ')
+			i++;
+
+		/* If we are not at the end, count a word */
+		if (str[i] != '\0')
+		{
+			words++;
+			/* Move i to the end of this word */
+			while (str[i] != '\0' && str[i] != ' ')
+				i++;
+		}
+	}
+	return (words);
+}
+
+/**
+ * strtow - Splits a string into words (array of strings)
+ * @str: The input string
+ *
+ * Return: Pointer to an array of word-strings, or NULL on failure
+ */
+char **strtow(char *str)
+{
+	char **array;
+	int i = 0, w = 0, start = 0, end = 0, length = 0, word_count;
+
+	if (str == NULL || *str == '\0')
+		return (NULL);
+
+	word_count = count_words(str);
+	if (word_count == 0)
+		return (NULL);
+
+	array = malloc((word_count + 1) * sizeof(char *));
+	if (array == NULL)
+		return (NULL);
+
+	while (w < word_count)
+	{
+		/* Skip spaces to find the start of the next word */
+		while (str[i] == ' ')
+			i++;
+		start = i;
+
+		/* Find the end of this word */
+		while (str[i] != '\0' && str[i] != ' ')
+			i++;
+		end = i;
+
+		/* Allocate memory for this word (+1 for null terminator) */
+		length = end - start;
+		array[w] = malloc((length + 1) * sizeof(char));
+		if (array[w] == NULL)
+		{
+			/* Free all previously allocated pointers, then free array */
+			while (w > 0)
+			{
+				w--;
+				free(array[w]);
+			}
+			free(array);
+			return (NULL);
+		}
+
+		/* Copy characters for this word */
+		for (i = 0; i < length; i++)
+			array[w][i] = str[start + i];
+		array[w][i] = '\0'; /* Null-terminate */
+
+		/* Update i in outer scope to end of word, increment w */
+		i = end;
+		w++;
+	}
+
+	array[w] = NULL; /* Last element should be NULL */
+	return (array);
+}
