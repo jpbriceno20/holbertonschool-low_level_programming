@@ -6,31 +6,36 @@
  * @s1: First string
  * @s2: Second string
  *
- * Return: Pointer to new concatenated string, or NULL if allocation fails
+ * Return: Pointer to newly allocated memory with s1 + s2,
+ *         or NULL if malloc fails
  */
 char *str_concat(char *s1, char *s2)
 {
-    char *concat;
-    unsigned int i, j, len1 = 0, len2 = 0;
+	char *concat;
+	unsigned int i, j, len1 = 0, len2 = 0;
 
-    if (s1 != NULL)
-        while (s1[len1] != '\0')
-            len1++;
-    if (s2 != NULL)
-        while (s2[len2] != '\0')
-            len2++;
+	if (s1 != NULL)
+	{
+		while (s1[len1] != '\0')
+			len1++;
+	}
+	if (s2 != NULL)
+	{
+		while (s2[len2] != '\0')
+			len2++;
+	}
 
-    concat = malloc((len1 + len2 + 1) * sizeof(char));
-    if (concat == NULL)
-        return (NULL);
+	concat = malloc((len1 + len2 + 1) * sizeof(char));
+	if (concat == NULL)
+		return (NULL);
 
-    for (i = 0; i < len1; i++)
-        concat[i] = s1[i];
+	for (i = 0; i < len1; i++)
+		concat[i] = s1[i];
 
-    for (j = 0; j < len2; j++, i++)
-        concat[i] = s2[j];
+	for (j = 0; j < len2; j++, i++)
+		concat[i] = s2[j];
 
-    concat[i] = '\0';
+	concat[i] = '\0';
 
-    return (concat);
+	return (concat);
 }
