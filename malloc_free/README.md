@@ -1,0 +1,1 @@
+In this directory we will see automatic and dynamic allocation, malloc and free.
