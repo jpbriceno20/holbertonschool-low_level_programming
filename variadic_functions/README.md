@@ -1,0 +1,1 @@
+In this directory we will practice the variadic functions in C.
