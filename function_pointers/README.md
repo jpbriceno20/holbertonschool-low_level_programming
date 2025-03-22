@@ -1,0 +1,1 @@
+In this directory we will review funciton pointers in C.
