@@ -1,0 +1,1 @@
+In this direcory we will review Bit Manipulation.
